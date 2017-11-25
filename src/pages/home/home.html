@@ -4,11 +4,26 @@
       Ionic Blank
     </ion-title>
   </ion-navbar>
+
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="titre du film recherché"></ion-searchbar>
+
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
+  <!-- The world is your oyster.
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  </p> -->
+
+    <div *ngIf="ress && ress.length != 0; else listeVide">
+      <ion-list no-lines>
+        <button ion-item *ngFor="let film of ress" (click)="itemSelected(film)">
+          <ion-thumbnail item-start><img [src]="film.image"></ion-thumbnail>
+          <h2>{{ film.title }}</h2>
+          <p>{{ film.date }}</p>
+          <p> {{ film.author }}</p>
+        </button>
+      </ion-list>
+    </div>
+    <ng-template #listeVide><h1 style="text-align: center">Aucun resultat</h1></ng-template>
 </ion-content>
